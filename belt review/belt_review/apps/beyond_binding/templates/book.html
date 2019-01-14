@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Btb: Add Book</title>
+    {% load static %}
+    <style>
+         body{
+            background-image: url({% static 'bg2.jpg' %});
+            
+            
+        }
+
+        .navbar{
+            background-color:  white;
+        }
+
+        a.mlink:hover{
+            color:maroon;
+        }
+        .mlink{
+            color: maroon;
+        }
+
+        .white{
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+          .wlink{
+            color:white;
+        }
+
+        a.wlink:hover{
+            color:white;
+        }
+
+         hr{
+            border: solid 2px white;
+
+        }
+
+        .left_reviews{
+            margin-right: 60px;
+            padding:5px;
+            display: inline-block;
+            border:solid 2px white;
+            border-radius: 15px;
+        }
+
+        .right_reviews{
+            text-align: center;
+            vertical-align: top;
+            padding:5px;
+            display: inline-block;
+            border:solid 2px white;
+            border-radius: 15px;
+            overflow: auto;
+            width:350px;
+            height: 500px;
+
+
+        }
+
+
+
+    </style>
+  </head>
+  <body>
+        <nav class="navbar navbar-light pt-0 pb-0 mb-5" >
+                <a class="navbar-brand" href="#">
+                        <img src="{% static 'bb_logo.png' %}"   class="d-inline-block align-top m-0" alt="">
+                        <span class="navbar-text  ml-auto ">
+                                
+                            </span>
+                </a>
+                <div class="right_align_nav">
+                       
+                        <a class='mlink ' href="/home">Home</a> | <a class='mlink' href='/logout'>Logout</a>
+                    </div>
+        </nav>
+        
+        <div class='container'>
+            <h4 class='white display-4'><small>{{books.title}}</small></h4>
+            <h4 class='white'>Author: {{books.author.first_name|title}} {{books.author.last_name|title}}</h4></h4>
+            <hr>
+
+        </div>
+
+        <div class='container p-0'>
+                <div class='left_reviews'>
+                    <h3 class='white'><u>Recent Book Reviews:</u></h3>
+                    
+                        <div>
+                            {% for book in books.reviews.all%}
+                                <h5 class='white'><a class='wlink' href="/books/{{review.book.id}}"><u>{{review.book.title}}</u></a></h5>
+                                <p class='lead white'>Rating: {{book.rating}}/5</p>
+                                <blockquote class="blockquote">
+                                    
+                                        <p class="mb-0 white">"{{book.comment}}"</p>
+                                        <footer class="blockquote-footer white">{{book.reviewer.first_name|title}} {{book.reviewer.last_name|title}} ({{book.created_at}})</footer>
+                                </blockquote>
+                                <hr>
+                            {% endfor %}
+
+                                
+                        </div>
+                    
+                </div>
+    
+    
+               
+                <div class='right_reviews white '>
+                    <form action='/add_process' method='post'>
+                            {% csrf_token%}
+                        <h3 class='white'>Add a review:</h3>
+                        <label for="exampleFormControlTextarea1"><h4>Review:</h4></label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='review'></textarea>
+                        <h4>Rating</h4>
+                            <select class="form-control" name = 'rating'>
+                                <option value = 1 >1</option>
+                                <option value = 2 >2</option>
+                                <option value = 3 >3</option>
+                                <option value = 4 >4</option>
+                                <option value = 5 >5</option>
+                    
+                            </select>
+                            <br>
+                        <button type="submit" class="btn btn-outline-light">Submit</button>
+                    </form>
+            
+    
+    
+                </div>
+            </div>
+
+        </div>

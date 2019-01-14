@@ -1,0 +1,42 @@
+1.Change the name of the 5th book to C#
+	b = Book.objects.get(id=5)
+	b.name = c#
+	b.save()
+
+2.Change the first_name of the 5th author to Ketul
+	b = Author.objects.get(id=5)
+	b.first_name = Ketul
+	b.save()
+
+3.Assign the first author to the first 2 books	
+	a = Author.objects.get(id=1)
+	a.books.add(Book.objects.get(id=1), Book.objects.get(id=2))
+
+4.Assign the second author to the first 3 books
+	a = Author.objects.get(id=2)
+	a.books.add(Book.objects.get(id=1), Book.objects.get(id=2), Book.objects.get(id=3))
+
+5.Assign the third author to the first 4 books
+	a = Author.objects.get(id=2)
+	a.books.add(Book.objects.get(id=1), Book.objects.get(id=2), Book.objects.get(id=3), Book.objects.get(id=4))
+
+6.Assign the fourth author to the first 5 books (or in other words, all the books)
+	a = Author.objects.get(id=2)
+	a.books.add(Book.objects.get(id=1), Book.objects.get(id=2), Book.objects.get(id=3), Book.objects.get(id=4), Book.objects.get(id=5))
+
+7.For the 3rd book, retrieve all the authors
+	Book.objects.get(id=3).authors.all()
+
+8.For the 3rd book, remove the first author
+	a = Author.objects.get(id=3)
+	Book.objects.get(id=3).authors.remove(a)
+
+9.For the 2nd book, add the 5th author as one of the authors
+	a = Author.objects.get(id=5)
+	Book.objects.get(id=2).authors.remove(a)
+
+10.Find all the books that the 3rd author is part of
+	Author.objects.get(id=3).books.all()
+
+11.Find all the books that the 2nd author is part of
+	Author.objects.get(id=2).books.all()

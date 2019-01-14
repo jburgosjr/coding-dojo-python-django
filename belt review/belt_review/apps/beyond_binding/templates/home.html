@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Home</title>
+    {% load static %}
+    <style>
+       
+        
+
+        body{
+            background-image: url({% static 'bg2.jpg' %});
+            
+            
+        }
+
+        .navbar{
+            background-color:  white;
+        }
+
+        a.mlink:hover{
+            color:maroon;
+        }
+        .mlink{
+            color: maroon;
+        }
+
+        .wlink{
+            color:white;
+        }
+
+        a.wlink:hover{
+            color:white;
+        }
+
+        .white{
+            font-weight: normal;
+            color:white;
+        }
+        
+        .left_reviews{
+            margin-right: 60px;
+            padding:5px;
+            display: inline-block;
+            border:solid 2px white;
+            border-radius: 15px;
+        }
+
+        .right_reviews{
+            text-align: center;
+            vertical-align: top;
+            padding:5px;
+            display: inline-block;
+            border:solid 2px white;
+            border-radius: 15px;
+            overflow: auto;
+            width:350px;
+            height: 500px;
+
+
+        }
+
+        hr{
+            border: solid 1px white;
+        }
+
+
+
+       
+
+            
+        
+      
+       
+    </style>
+
+
+  </head>
+  <body>
+        <nav class="navbar navbar-light pt-0 pb-0 mb-5" >
+                <a class="navbar-brand" href="#">
+                        <img src="{% static 'bb_book.png' %}"  width='50' height = '50' class="d-inline-block align-top " alt="">
+                        <span class="navbar-text  ml-auto ">
+                                Welcome back {{user.first_name|title}} !
+                            </span>
+                </a>
+                <div class="right_align_nav">
+                       
+                        <a class='mlink ' href="/add_book">Add Book and Review</a> | <a class='mlink' href='/logout'>Logout</a>
+                    </div>
+        </nav>
+
+        <div class='container p-0'>
+            <div class='left_reviews'>
+                <h3 class='white'><u>Recent Book Reviews:</u></h3>
+                {% for review in reviews|slice:":3" %}
+                    <div>
+                        <h5 class='white'><a class='wlink' href="/books/{{review.book.id}}"><u>{{review.book.title}}</u></a></h5>
+                        <p class='lead white'>Rating: {{review.rating}}/5</p>
+                        <blockquote class="blockquote">
+                            
+                                <p class="mb-0 white">"{{review.comment}}"</p>
+                                <footer class="blockquote-footer white">{{review.reviewer.first_name|title}} {{review.reviewer.last_name|title}} ({{review.created_at}})</footer>
+                        </blockquote>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+           
+            <div class='right_reviews '>
+                <h3 class='white'>Other Books with Reviews:</h3>
+                {% for review in reviews %}
+                    <div class='obr_list'>
+                        <h4 class='white'><a class='wlink' href="/book/{{review.book.id}}">{{review.book.title}}</a></h4>
+
+                    </div>
+                {% endfor %}
+
+                    
+            </div>
+        </div>
+    
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
